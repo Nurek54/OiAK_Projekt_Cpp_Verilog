@@ -1,0 +1,14 @@
+# Projekt Verilator
+
+## Wymagania
+
+- MSYS2
+- Verilator
+
+## Instalacja
+
+1. Pobierz i zainstaluj MSYS2 z [oficjalnej strony](https://www.msys2.org/).
+2. Zainstaluj niezbędne pakiety:
+   ```sh
+   pacman -Syu
+   pacman -S git make autoconf automake gcc g++

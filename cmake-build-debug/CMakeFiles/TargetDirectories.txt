@@ -1,0 +1,4 @@
+C:/Users/g_sie/CLionProjects/new_project/cmake-build-debug/CMakeFiles/sim.dir
+C:/Users/g_sie/CLionProjects/new_project/cmake-build-debug/CMakeFiles/verilate.dir
+C:/Users/g_sie/CLionProjects/new_project/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/g_sie/CLionProjects/new_project/cmake-build-debug/CMakeFiles/rebuild_cache.dir

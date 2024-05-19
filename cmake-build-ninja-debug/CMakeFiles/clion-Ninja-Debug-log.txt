@@ -1,0 +1,17 @@
+"C:\Program Files\JetBrains\CLion 2023.3.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.3.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\g_sie\CLionProjects\OiAK_Projekt_Cpp_Verilog -B C:\Users\g_sie\CLionProjects\OiAK_Projekt_Cpp_Verilog\cmake-build-ninja-debug
+-- Configuring done (0.1s)
+CMake Error at CMakeLists.txt:29 (add_executable):
+  Cannot find source file:
+
+    C:/Users/g_sie/CLionProjects/new_project/verilator/include/verilated.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm
+  .ccm .cxxm .c++m .h .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90
+  .f95 .f03 .hip .ispc
+
+
+CMake Error at CMakeLists.txt:29 (add_executable):
+  No SOURCES given to target: sim
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
