@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/g_sie/CLionProjects/new_project
+# Install script for directory: C:/Users/g_sie/CLionProjects/OiAK_Projekt_Cpp_Verilog
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/verilator_project")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/OiAK_Projekt_Cpp_Verilog")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/g_sie/CLionProjects/new_project/cmake-build-ninja-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/g_sie/CLionProjects/OiAK_Projekt_Cpp_Verilog/cmake-build-ninja-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

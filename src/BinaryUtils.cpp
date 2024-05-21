@@ -1,4 +1,6 @@
 #include "BinaryUtils.h"
+#include <bitset>
+#include <sstream>
 
 std::vector<int> BinaryUtils::toBinary(int num, int size) {
     std::vector<int> bin(size, 0);
@@ -22,4 +24,10 @@ int BinaryUtils::binaryToDecimal(const std::vector<int>& binary) {
     }
 
     return result;
+}
+
+std::string BinaryUtils::toBinaryString(int value, int bits) {
+    std::bitset<32> bitset(value);
+    std::string bitString = bitset.to_string();
+    return bitString.substr(32 - bits);
 }

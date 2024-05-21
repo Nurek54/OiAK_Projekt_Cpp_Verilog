@@ -60,12 +60,9 @@ void Vtop::eval_step() {
 
 //============================================================
 // Events and timing
-bool Vtop::eventsPending() { return false; }
+bool Vtop::eventsPending() { return !vlSymsp->TOP.__VdlySched.empty(); }
 
-uint64_t Vtop::nextTimeSlot() {
-    VL_FATAL_MT(__FILE__, __LINE__, "", "%Error: No delays in the design");
-    return 0;
-}
+uint64_t Vtop::nextTimeSlot() { return vlSymsp->TOP.__VdlySched.nextTimeSlot(); }
 
 //============================================================
 // Utilities

@@ -1,66 +1,60 @@
+#include "VBoothRadix4.h"
+#include "verilated.h"
+#include "verilated_vcd_c.h"
 #include <iostream>
-#include "BinaryUtils.h"
-#include "Booth.h"
-#include "Modulo.h"
-#include "../verilator/include/verilated.h"
-#include "../obj_dir/Vtop.h"
-
-// Dummy implementation of sc_time_stamp()
-double sc_time_stamp() {
-    return 0;
-}
+#include <bitset>
 
 int main(int argc, char **argv, char **env) {
-    int liczba1, liczba2, n;
-    std::cout << "Podaj liczbe 1: ";
-    std::cin >> liczba1;
-    std::vector<int> M_bin = BinaryUtils::toBinary(liczba1, sizeof(int) * 8);
-    std::cout << "Liczba 1 w binarnym: ";
-    for (int bit : M_bin) {
-        std::cout << bit;
-    }
-    std::cout << std::endl;
-
-    std::cout << "Podaj liczbe 2: ";
-    std::cin >> liczba2;
-    std::vector<int> Q_bin = BinaryUtils::toBinary(liczba2, sizeof(int) * 8);
-    std::cout << "Liczba 2 w binarnym: ";
-    for (int bit : Q_bin) {
-        std::cout << bit;
-    }
-    std::cout << std::endl;
-
-    // Algorytm Bootha
-    Booth booth(liczba1, liczba2);
-    int boothResult = booth.multiply();
-    std::vector<int> boothResultBinary = BinaryUtils::toBinary(boothResult, sizeof(int) * 8);
-    std::cout << "\nAlgorytm Bootha:\n";
-    std::cout << "Wynik w binarnym: ";
-    for (int bit : boothResultBinary) {
-        std::cout << bit;
-    }
-    std::cout << "\nWynik w dziesietnym: " << boothResult << std::endl;
-
-    // Dodaj obliczenia modulo
-    std::cout << "Podaj n dla modulo 2^n - 3: ";
-    std::cin >> n;
-
-    Modulo modulo(n);
-    int moduloResult = modulo.applyModulo(boothResult);
-    std::vector<int> moduloResultBinary = BinaryUtils::toBinary(moduloResult, sizeof(int) * 8);
-    std::cout << "\nWynik modulo w binarnym: ";
-    for (int bit : moduloResultBinary) {
-        std::cout << bit;
-    }
-    std::cout << "\nWynik modulo w dziesietnym: " << moduloResult << std::endl;
-
-    // Symulacja z użyciem Verilatora
     Verilated::commandArgs(argc, argv);
-    Vtop* top = new Vtop;
-    while (!Verilated::gotFinish()) {
-        top->eval();
-    }
-    delete top;
 
-    return 0;
+    // Initialize top verilog instance
+    VBoothRadix4* top = new VBoothRadix4;
+
+    // Initialize trace dump
+    VerilatedVcdC* tfp = new VerilatedVcdC;
+    Verilated::traceEverOn(true);
+    top->trace(tfp, 99);
+    tfp->open("dump.vcd");
+
+    // Initialize simulation inputs
+    top->clk = 0;
+    top->n_reset = 1;
+    top->start = 0;
+    top->mplier = 69; // 3 in decimal
+    top->mcand = 96;  // 6 in decimal
+
+    // Run simulation for several clock cycles
+    for (int i = 0; i < 300; i++) {
+        if (i == 2) {
+            top->n_reset = 0; // Apply reset
+        }
+        if (i == 4) {
+            top->n_reset = 1; // Release reset
+            top->start = 1; // Start multiplication
+        }
+        if (i == 6) {
+            top->start = 0; // Clear start signal
+        }
+
+        // Toggle clock
+        top->clk = !top->clk;
+
+        // Evaluate model
+        top->eval();
+
+        // Dump trace
+        tfp->dump(i);
+    }
+
+    // Close trace dump
+    tfp->close();
+
+    // Print final result
+    std::cout << "Wynik (dec): " << top->product << std::endl;
+    std::cout << "Wynik (hex): " << std::hex << top->product << std::endl;
+    std::cout << "Wynik (bin): " << std::bitset<36>(top->product) << std::endl;
+
+    // Cleanup
+    delete top;
+    exit(0);
 }

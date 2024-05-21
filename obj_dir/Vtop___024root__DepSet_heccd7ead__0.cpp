@@ -5,6 +5,49 @@
 #include "Vtop__pch.h"
 #include "Vtop___024root.h"
 
+VlCoroutine Vtop___024root___eval_initial__TOP__Vtiming__0(Vtop___024root* vlSelf);
+VlCoroutine Vtop___024root___eval_initial__TOP__Vtiming__1(Vtop___024root* vlSelf);
+
+void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
+    // Body
+    Vtop___024root___eval_initial__TOP__Vtiming__0(vlSelf);
+    Vtop___024root___eval_initial__TOP__Vtiming__1(vlSelf);
+}
+
+VL_INLINE_OPT VlCoroutine Vtop___024root___eval_initial__TOP__Vtiming__0(Vtop___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial__TOP__Vtiming__0\n"); );
+    // Init
+    CData/*0:0*/ top__DOT__clk;
+    top__DOT__clk = 0;
+    // Body
+    top__DOT__clk = 0U;
+    while (1U) {
+        co_await vlSelf->__VdlySched.delay(5ULL, nullptr, 
+                                           "C:/Users/g_sie/CLionProjects/OiAK_Projekt_Cpp_Verilog/verilog\top.v", 
+                                           19);
+        top__DOT__clk = (1U & (~ (IData)(top__DOT__clk)));
+    }
+}
+
+VL_INLINE_OPT VlCoroutine Vtop___024root___eval_initial__TOP__Vtiming__1(Vtop___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial__TOP__Vtiming__1\n"); );
+    // Body
+    co_await vlSelf->__VdlySched.delay(0xaULL, nullptr, 
+                                       "C:/Users/g_sie/CLionProjects/OiAK_Projekt_Cpp_Verilog/verilog\top.v", 
+                                       27);
+    co_await vlSelf->__VdlySched.delay(0xc8ULL, nullptr, 
+                                       "C:/Users/g_sie/CLionProjects/OiAK_Projekt_Cpp_Verilog/verilog\top.v", 
+                                       28);
+    VL_FINISH_MT("C:/Users/g_sie/CLionProjects/OiAK_Projekt_Cpp_Verilog/verilog\\top.v", 28, "");
+}
+
 void Vtop___024root___eval_act(Vtop___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -17,6 +60,16 @@ void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_nba\n"); );
 }
 
+void Vtop___024root___timing_resume(Vtop___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___timing_resume\n"); );
+    // Body
+    if ((1ULL & vlSelf->__VactTriggered.word(0U))) {
+        vlSelf->__VdlySched.resume();
+    }
+}
+
 void Vtop___024root___eval_triggers__act(Vtop___024root* vlSelf);
 
 bool Vtop___024root___eval_phase__act(Vtop___024root* vlSelf) {
@@ -24,7 +77,7 @@ bool Vtop___024root___eval_phase__act(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_phase__act\n"); );
     // Init
-    VlTriggerVec<0> __VpreTriggered;
+    VlTriggerVec<1> __VpreTriggered;
     CData/*0:0*/ __VactExecute;
     // Body
     Vtop___024root___eval_triggers__act(vlSelf);
@@ -32,6 +85,7 @@ bool Vtop___024root___eval_phase__act(Vtop___024root* vlSelf) {
     if (__VactExecute) {
         __VpreTriggered.andNot(vlSelf->__VactTriggered, vlSelf->__VnbaTriggered);
         vlSelf->__VnbaTriggered.thisOr(vlSelf->__VactTriggered);
+        Vtop___024root___timing_resume(vlSelf);
         Vtop___024root___eval_act(vlSelf);
     }
     return (__VactExecute);
