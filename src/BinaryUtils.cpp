@@ -27,7 +27,9 @@ int BinaryUtils::binaryToDecimal(const std::vector<int>& binary) {
 }
 
 std::string BinaryUtils::toBinaryString(int value, int bits) {
-    std::bitset<32> bitset(value);
-    std::string bitString = bitset.to_string();
-    return bitString.substr(32 - bits);
+    if (bits <= 0) return "";
+
+    unsigned int mask = (1u << bits) - 1;
+    std::bitset<36> bitset(value & mask);
+    return bitset.to_string().substr(36 - bits);
 }
