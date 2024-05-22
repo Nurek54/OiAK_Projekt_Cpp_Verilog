@@ -8,6 +8,7 @@
 #include <bitset>
 #include <cstdio>
 #include <string>
+#include <chrono>
 
 int runNumber = 0; // Global run number counter
 
@@ -34,6 +35,8 @@ void runBoothRadix4(int mplier, int mcand, int n) {
     top->mplier = mplier;
     top->mcand = mcand;
 
+    auto start_time = std::chrono::high_resolution_clock::now();
+
     // Run simulation for several clock cycles
     for (int i = 0; i < 300; i++) {
         if (i == 2) {
@@ -57,11 +60,15 @@ void runBoothRadix4(int mplier, int mcand, int n) {
         tfp->dump(i);
     }
 
+    auto end_time = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::nano> elapsed = end_time - start_time;
+
     // Close trace dump
     tfp->close();
 
     // Print final result
     std::cout << "\nWynik (BoothRadix4): " << top->product << std::endl;
+    std::cout << "Czas wykonania (BoothRadix4): " << elapsed.count() << " ns" << std::endl;
 
     Modulo modulo(n);
     int moduloResult = modulo.applyModulo(top->product);
@@ -74,8 +81,14 @@ void runBoothRadix4(int mplier, int mcand, int n) {
 
 void runBooth(int mplier, int mcand, int n) {
     Booth booth(mplier, mcand);
+
+    auto start_time = std::chrono::high_resolution_clock::now();
     int result = booth.multiply();
+    auto end_time = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::nano> elapsed = end_time - start_time;
+
     std::cout << "\nWynik (Booth): " << result << std::endl;
+    std::cout << "Czas wykonania (Booth): " << elapsed.count() << " ns" << std::endl;
 
     Modulo modulo(n);
     int moduloResult = modulo.applyModulo(result);
